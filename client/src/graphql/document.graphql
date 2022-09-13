@@ -1,0 +1,148 @@
+query post($postId: ID!) {
+  post(postId: $postId) {
+    id
+    image
+    caption
+    comments {
+      id
+      body
+      username
+      createdAt
+    }
+    likeCount
+    username
+    isLiked
+    createdAt
+  }
+}
+
+query posts($pageParam: Int) {
+  posts(pageParam: $pageParam) {
+    id
+    image
+    caption
+    comments {
+      id
+      username
+      body
+      createdAt
+    }
+    likeCount
+    username
+    isLiked
+    createdAt
+  }
+}
+
+query postsByUser($username: String!) {
+  postsByUser(username: $username) {
+    id
+    image
+    commentCount
+    likeCount
+  }
+}
+
+query user($username: String!) {
+  user(username: $username) {
+    id
+    username
+    image
+    bio
+    name
+    following
+    followers
+  }
+}
+
+query recommendedUsers {
+  recommendedUsers {
+    username
+    image
+  }
+}
+
+mutation loginUser($username: String!, $password: String!) {
+  loginUser(username: $username, password: $password) {
+    id
+    name
+    username
+    email
+    image
+    updatedAt
+  }
+}
+
+mutation registerUser(
+  $username: String!
+  $email: String!
+  $name: String!
+  $password: String!
+  $confirmPassword: String!
+) {
+  registerUser(
+    input: {
+      username: $username
+      email: $email
+      name: $name
+      password: $password
+      confirmPassword: $confirmPassword
+    }
+  ) {
+    id
+    username
+    email
+    name
+  }
+}
+
+mutation logoutUser {
+  logoutUser
+}
+
+mutation updateUserInfo(
+  $username: String!
+  $bio: String
+  $image: String
+  $name: String
+) {
+  updateUserInfo(
+    input: { username: $username, bio: $bio, image: $image, name: $name }
+  ) {
+    username
+  }
+}
+
+mutation followUser($followedUsername: String!) {
+  followUser(followedUsername: $followedUsername) {
+    username
+  }
+}
+
+mutation createPost($image: String!, $caption: String!) {
+  createPost(input: { image: $image, caption: $caption }) {
+    image
+    caption
+    username
+  }
+}
+
+mutation deletePost($postId: ID!) {
+  deletePost(postId: $postId)
+}
+
+mutation likePost($postId: ID!) {
+  likePost(postId: $postId) {
+    username
+  }
+}
+
+mutation addComment($body: String!, $postId: ID!) {
+  addComment(input: { body: $body, postId: $postId }) {
+    username
+  }
+}
+
+mutation deleteComment($commentId: ID!) {
+  deleteComment(commentId: $commentId)
+}

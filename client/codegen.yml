@@ -1,0 +1,13 @@
+schema: https://captured-server.herokuapp.com/graphql
+documents: "./src/**/*.graphql"
+generates:
+  ./src/hooks/queryHooks.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      skipTypename: true
+      fetcher: graphql-request
+      errorType: Error
+      addInfiniteQuery: true

@@ -1,0 +1,83 @@
+type Query {
+  recommendedUsers: [User!]!
+  user(username: String!): User
+  posts(pageParam: Int): [Post!]!
+  postsByUser(username: String!): [Post!]!
+  post(postId: ID!): Post!
+}
+
+type Mutation {
+  registerUser(input: RegisterUserInput!): User!
+  loginUser(username: String!, password: String): User!
+  logoutUser: String!
+  followUser(followedUsername: String!): User!
+  updateUserInfo(input: UpdateUserInfoInput): User!
+  createPost(input: CreatePostInput!): Post!
+  editPostCaption(postId: ID!, caption: String!): Post!
+  deletePost(postId: ID!): String!
+  likePost(postId: ID!): Post!
+  addComment(input: AddCommentInput!): Comment!
+  editComment(commentId: ID!, body: String!): Comment!
+  deleteComment(commentId: ID!): String!
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  name: String!
+  image: String
+  bio: String
+  followers: [String!]!
+  following: [String!]!
+  updatedAt: String!
+  createdAt: String!
+}
+
+type Post {
+  id: ID!
+  image: String!
+  caption: String!
+  comments: [Comment!]
+  likes: [String]!
+  isLiked: Boolean!
+  commentCount: Int!
+  likeCount: Int!
+  username: String!
+  updatedAt: String!
+  createdAt: String!
+}
+
+type Comment {
+  id: ID!
+  body: String!
+  postId: ID!
+  username: String!
+  updatedAt: String!
+  createdAt: String!
+}
+
+input RegisterUserInput {
+  username: String!
+  email: String!
+  name: String!
+  password: String!
+  confirmPassword: String!
+}
+
+input UpdateUserInfoInput {
+  name: String
+  image: String
+  bio: String
+  username: String!
+}
+
+input CreatePostInput {
+  image: String!
+  caption: String!
+}
+
+input AddCommentInput {
+  body: String!
+  postId: ID!
+}
